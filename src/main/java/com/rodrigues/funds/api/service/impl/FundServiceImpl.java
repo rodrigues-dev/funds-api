@@ -44,8 +44,17 @@ public class FundServiceImpl implements FundService {
 	}
 
 	@Override
-	public void deleteFund(Long id) {
+	@Transactional
+	public boolean deleteFund(Long id) {
 		
+		Optional<Fund> fund = fundRepository.findById(id);
+		
+		if (fund.isPresent()) {
+			fundRepository.delete(fund.get());
+			return true;
+		}
+			
+		return false;
 	}
 
 }

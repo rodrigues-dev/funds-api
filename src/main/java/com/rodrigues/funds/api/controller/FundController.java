@@ -68,9 +68,12 @@ public class FundController {
 	
 	@DeleteMapping("/{id}")
 	@Transactional
-	public FundDto deleteFund (@PathVariable Long id) {
+	public ResponseEntity<?> deleteFund (@PathVariable Long id) {
 		
-		return null;
+		if (fundService.deleteFund(id))
+			return ResponseEntity.noContent().build();
+		
+		return ResponseEntity.notFound().build();
 	}
 	
 }

@@ -16,6 +16,6 @@ public interface FundService {
 	
 	public List<Fund> getAllFunds ();
 	
-	public void deleteFund (Long id);
+	public boolean deleteFund (Long id);
 
 }
