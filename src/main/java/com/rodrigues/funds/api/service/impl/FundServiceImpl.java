@@ -1,6 +1,7 @@
 package com.rodrigues.funds.api.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,9 +34,8 @@ public class FundServiceImpl implements FundService {
 	}
 
 	@Override
-	public Fund getFund(Long id) {
-		
-		return null;
+	public Optional<Fund> getFund(Long id) {
+		return fundRepository.findById(id);
 	}
 	
 	@Override

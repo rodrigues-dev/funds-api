@@ -1,6 +1,7 @@
 package com.rodrigues.funds.api.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.rodrigues.funds.api.form.FundForm;
 import com.rodrigues.funds.api.model.Fund;
@@ -11,7 +12,7 @@ public interface FundService {
 	
 	public Fund updateFund (FundForm fund);
 	
-	public Fund getFund (Long id);
+	public Optional<Fund> getFund (Long id);
 	
 	public List<Fund> getAllFunds ();
 	

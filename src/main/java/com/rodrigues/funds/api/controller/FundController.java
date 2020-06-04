@@ -2,6 +2,7 @@ package com.rodrigues.funds.api.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,12 @@ public class FundController {
 	@GetMapping("/{id}")
 	public ResponseEntity<FundDto> getFund (@PathVariable Long id) {
 		
-		return null;
+		Optional<Fund> fund = fundService.getFund(id);
+		
+		if (fund.isPresent())
+			return ResponseEntity.ok(new FundDto(fund.get()));
+		
+		return ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping
