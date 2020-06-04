@@ -57,8 +57,7 @@ public class FundController {
 	
 	@GetMapping
 	public ResponseEntity<List<FundDto>> getAllFunds () {
-		
-		return null;
+		return ResponseEntity.ok(new FundDto().list(fundService.getAllFunds()));
 	}
 	
 	@DeleteMapping("/{id}")

@@ -1,5 +1,7 @@
 package com.rodrigues.funds.api.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,9 +39,8 @@ public class FundServiceImpl implements FundService {
 	}
 	
 	@Override
-	public Fund getAllFunds() {
-		
-		return null;
+	public List<Fund> getAllFunds() {
+		return fundRepository.findAll();
 	}
 
 	@Override
