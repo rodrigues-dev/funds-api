@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.rodrigues.funds.api.dto.FundDto;
 import com.rodrigues.funds.api.form.FundForm;
+import com.rodrigues.funds.api.form.FundToUpdateForm;
 import com.rodrigues.funds.api.model.Fund;
 import com.rodrigues.funds.api.service.FundService;
 
@@ -31,7 +31,6 @@ public class FundController {
 	private FundService fundService;
 	
 	@PostMapping
-	@Transactional
 	public ResponseEntity<FundDto> createFund (@Validated @RequestBody FundForm fundForm, UriComponentsBuilder uriBuilder) {
 		
 		Fund fund = fundService.createFund(fundForm);
@@ -43,9 +42,13 @@ public class FundController {
 		return ResponseEntity.created(uri).body(new FundDto(fund));
 	}
 	
-	@PutMapping
-	@Transactional
-	public ResponseEntity<FundDto> updateFund (FundForm fundForm) {
+	@PutMapping("/{id}")
+	public ResponseEntity<FundDto> updateFund (@RequestBody FundToUpdateForm fundForm, @PathVariable Long id) {
+		
+		Optional<Fund> fundUpdated = fundService.updateFund(fundForm, id);
+		
+		if (fundUpdated.isPresent())
+			return ResponseEntity.ok(new FundDto(fundUpdated.get()));
 		
 		return null;
 	}
@@ -67,7 +70,6 @@ public class FundController {
 	}
 	
 	@DeleteMapping("/{id}")
-	@Transactional
 	public ResponseEntity<?> deleteFund (@PathVariable Long id) {
 		
 		if (fundService.deleteFund(id))

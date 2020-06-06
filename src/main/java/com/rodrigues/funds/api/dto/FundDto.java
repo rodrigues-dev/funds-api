@@ -16,6 +16,7 @@ public class FundDto {
 	private List<Operation> operations;
 	private Manager manager;
 	private Date datePurchase;
+	private Date dateUpdate;
 	
 	public FundDto() {
 		
@@ -26,6 +27,17 @@ public class FundDto {
 		this.ticker = fund.getTicker();
 		this.cnpj = fund.getCnpj();
 		this.datePurchase = fund.getDatePurchase();
+		this.dateUpdate = fund.getDateUpdate() != null ? fund.getDateUpdate() : null;
+		this.manager = fund.getManager() != null ? fund.getManager() : null;
+		this.operations = fund.getOperations() != null ? fund.getOperations() : null;
+	}
+
+	public Date getDateUpdate() {
+		return dateUpdate;
+	}
+
+	public void setDateUpdate(Date dateUpdate) {
+		this.dateUpdate = dateUpdate;
 	}
 
 	public Date getDatePurchase() {
