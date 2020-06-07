@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.rodrigues.funds.api.dto.ManagerDto;
 import com.rodrigues.funds.api.form.ManagerForm;
+import com.rodrigues.funds.api.form.ManagerToUpdateForm;
 import com.rodrigues.funds.api.model.Manager;
 import com.rodrigues.funds.api.repository.ManagerRepository;
 import com.rodrigues.funds.api.service.ManagerService;
@@ -26,9 +27,19 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public ManagerDto updateManager(ManagerForm managerForm) {
-		managerRepository.getOne(null);
-		return null;
+	@Transactional
+	public Optional<Manager> updateManager(ManagerToUpdateForm managerForm, Long id) {
+		
+		Optional<Manager> managerUpdated = managerRepository.findById(id);
+		
+		if (managerUpdated.isPresent()) {
+			Manager manager = managerRepository.getOne(id);
+			manager.setName(managerForm.getName());
+			manager.setSite(managerForm.getSite());
+			return managerUpdated;
+		}		
+		
+		return managerUpdated;
 	}
 
 	@Override

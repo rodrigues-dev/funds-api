@@ -5,13 +5,14 @@ import java.util.Optional;
 
 import com.rodrigues.funds.api.dto.ManagerDto;
 import com.rodrigues.funds.api.form.ManagerForm;
+import com.rodrigues.funds.api.form.ManagerToUpdateForm;
 import com.rodrigues.funds.api.model.Manager;
 
 public interface ManagerService {
 
 	public Manager createManager (ManagerForm managerForm);
 	
-	public ManagerDto updateManager (ManagerForm managerForm);
+	public Optional<Manager> updateManager(ManagerToUpdateForm managerForm, Long id);
 	
 	public Optional<Manager> getManager(Long id);
 	
