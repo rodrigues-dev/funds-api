@@ -2,6 +2,7 @@ package com.rodrigues.funds.api.dto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.rodrigues.funds.api.model.Fund;
 import com.rodrigues.funds.api.model.Manager;
@@ -64,6 +65,10 @@ public class ManagerDto {
 
 	public void setFunds(List<Fund> funds) {
 		this.funds = funds;
+	}
+
+	public List<ManagerDto> list(List<Manager> managers) {
+		return managers.stream().map(ManagerDto::new).collect(Collectors.toList());
 	}
 
 }

@@ -1,11 +1,13 @@
 package com.rodrigues.funds.api.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,11 @@ public class ManagerController {
 		URI uri = uriBuilder.path("/v1/managers/{id}").buildAndExpand(manager.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(new ManagerDto(manager));
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<ManagerDto>> getAllFunds () {
+		return ResponseEntity.ok(managerService.getAllManager());
 	}
 
 }

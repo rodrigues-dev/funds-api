@@ -1,5 +1,7 @@
 package com.rodrigues.funds.api.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,12 @@ public class ManagerServiceImpl implements ManagerService {
 	public ManagerDto getManager(Long id) {
 		managerRepository.findById(id);
 		return null;
+	}
+	
+	@Override
+	public List<ManagerDto> getAllManager() {
+		List<Manager> managers = managerRepository.findAll();
+		return new ManagerDto().list(managers);
 	}
 
 	@Override
