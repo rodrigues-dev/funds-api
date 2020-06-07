@@ -1,6 +1,7 @@
 package com.rodrigues.funds.api.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.rodrigues.funds.api.dto.ManagerDto;
 import com.rodrigues.funds.api.form.ManagerForm;
@@ -12,7 +13,7 @@ public interface ManagerService {
 	
 	public ManagerDto updateManager (ManagerForm managerForm);
 	
-	public ManagerDto getManager (Long id);
+	public Optional<Manager> getManager(Long id);
 	
 	public List<ManagerDto> getAllManager();
 	

@@ -2,12 +2,14 @@ package com.rodrigues.funds.api.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +39,20 @@ public class ManagerController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<ManagerDto>> getAllFunds () {
+	public ResponseEntity<List<ManagerDto>> getAllManagers () {
 		return ResponseEntity.ok(managerService.getAllManager());
 	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getManager (@PathVariable Long id) {
+		
+		Optional<Manager> manager = managerService.getManager(id);
+		
+		if (manager.isPresent())
+			return ResponseEntity.ok(new ManagerDto(manager.get()));
+		
+		return ResponseEntity.notFound().build();
+	}
+	
 
 }
