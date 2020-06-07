@@ -43,10 +43,15 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public ManagerDto deleteManager(Long id) {
-		managerRepository.deleteById(id);
-		return null;
+	@Transactional
+	public boolean deleteManager(Long id) {
+		
+		if (managerRepository.findById(id).isPresent()) {
+			managerRepository.deleteById(id);
+			return true;
+		}
+		
+		return false;
 	}
-	
-	
+
 }

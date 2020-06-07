@@ -17,6 +17,6 @@ public interface ManagerService {
 	
 	public List<ManagerDto> getAllManager();
 	
-	public ManagerDto deleteManager (Long id);
+	public boolean deleteManager(Long id);
 	
 }
