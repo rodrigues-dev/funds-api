@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.rodrigues.funds.api.enums.Type;
 
@@ -34,6 +36,7 @@ public class Operation {
 	private int quantity;
 	
 	@Column(name = "DATE")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	
 	@Column(name = "PRICE")

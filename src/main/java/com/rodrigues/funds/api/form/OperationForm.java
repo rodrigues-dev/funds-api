@@ -1,7 +1,7 @@
 package com.rodrigues.funds.api.form;
 
 import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
@@ -73,7 +73,7 @@ public class OperationForm {
 		operation.setFund(this.fund);
 		operation.setType(this.type);
 		operation.setQuantity(this.quantity);
-		operation.setDate(Date.valueOf(LocalDate.now()));
+		operation.setDate(Date.from(Instant.now()));
 		operation.setPrice(this.price);
 		operation.setPriceTax(this.priceTax);
 		
