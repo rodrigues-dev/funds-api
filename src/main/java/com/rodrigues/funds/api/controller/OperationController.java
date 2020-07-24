@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,26 +53,13 @@ public class OperationController {
 	
 	@GetMapping
 	public ResponseEntity<List<OperationDto>> getAllOperations () {
-		
-		List<Operation> allOperations = operationService.getAllOperations();
-		
-		if (allOperations.isEmpty())
-			return ResponseEntity.notFound().build();
-		
-		return ResponseEntity.ok().body(new OperationDto().list(allOperations));
-	}
-	
-	@PutMapping
-	public void updateOperation () {
-		
+		return ResponseEntity.ok().body(new OperationDto().list(operationService.getAllOperations()));
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteOperation (@PathVariable Long id) {
 		
-		boolean deleteOperation = operationService.deleteOperation(id);
-	
-		if (deleteOperation)
+		if (operationService.deleteOperation(id))
 			return ResponseEntity.noContent().build();
 		
 		return ResponseEntity.notFound().build();

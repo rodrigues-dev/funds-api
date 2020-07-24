@@ -45,7 +45,7 @@ public class OperationServiceImpl implements OperationService {
 		Optional<Operation> operation = operationRepository.findById(id);
 		
 		if (operation.isPresent()) {
-			operationRepository.deleteById(id);
+			operationRepository.delete(operation.get());
 			return true;
 		}
 		
