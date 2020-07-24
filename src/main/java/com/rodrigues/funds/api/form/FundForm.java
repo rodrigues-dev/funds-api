@@ -1,7 +1,7 @@
 package com.rodrigues.funds.api.form;
 
 import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
@@ -71,7 +71,7 @@ public class FundForm {
 		fund.setName(this.name);
 		fund.setTicker(this.ticker);
 		fund.setCnpj(this.cnpj);
-		fund.setDatePurchase(Date.valueOf(LocalDate.now()));
+		fund.setDatePurchase(Date.from(Instant.now()));
 
 		return fund;
 	}

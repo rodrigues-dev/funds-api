@@ -1,7 +1,7 @@
 package com.rodrigues.funds.api.service.impl;
 
 import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,15 +32,20 @@ public class FundServiceImpl implements FundService {
 
 	@Override
 	@Transactional
-	public Optional<Fund> updateFund(FundToUpdateForm fund, Long id) {
+	public Optional<Fund> updateFund(FundToUpdateForm fundForm, Long id) {
 		
-		Optional<Fund> fundUpdated = fundRepository.findById(id);
-		if (fundUpdated.isPresent()) {
+		Optional<Fund> fund = fundRepository.findById(id);
+		
+		if (fund.isPresent()) {
 			Fund fundToUpdate = fundRepository.getOne(id);
-			fundToUpdate.setDateUpdate(Date.valueOf(LocalDate.now()));
-			fundToUpdate.setName(fund.getName());
-//			fundToUpdate.setManager(manager);
-			return fundUpdated;
+			fundToUpdate.setName(fundForm.getName() != null ? fundForm.getName() : fund.get().getName());
+			fundToUpdate.setTicker(fundForm.getTicker() != null ? fundForm.getTicker() : fund.get().getTicker());
+			fundToUpdate.setCnpj(fundForm.getCnpj() != null ? fundForm.getCnpj() : fund.get().getCnpj());
+			fundToUpdate.setOperations(fundForm.getOperations() != null ? fundForm.getOperations() : fund.get().getOperations());
+			fundToUpdate.setManager(fundForm.getManager() != null ? fundForm.getManager() : fund.get().getManager());
+			fundToUpdate.setDateUpdate(Date.from(Instant.now()));
+			
+			return fund;
 		}
 		
 		return null;
