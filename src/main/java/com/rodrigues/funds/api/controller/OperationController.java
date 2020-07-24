@@ -68,9 +68,15 @@ public class OperationController {
 		
 	}
 	
-	@DeleteMapping
-	public void deleteOperation () {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteOperation (@PathVariable Long id) {
 		
+		boolean deleteOperation = operationService.deleteOperation(id);
+	
+		if (deleteOperation)
+			return ResponseEntity.noContent().build();
+		
+		return ResponseEntity.notFound().build();
 	}
 	
 }

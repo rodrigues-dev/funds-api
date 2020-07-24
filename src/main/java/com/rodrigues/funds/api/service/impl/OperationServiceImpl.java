@@ -41,7 +41,14 @@ public class OperationServiceImpl implements OperationService {
 	@Override
 	@Transactional
 	public boolean deleteOperation(Long id) {
-		// TODO Auto-generated method stub
+		
+		Optional<Operation> operation = operationRepository.findById(id);
+		
+		if (operation.isPresent()) {
+			operationRepository.deleteById(id);
+			return true;
+		}
+		
 		return false;
 	}
 
