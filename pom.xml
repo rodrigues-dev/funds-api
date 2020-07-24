@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.rodrigues</groupId>
 	<artifactId>funds.api</artifactId>
-	<version>0.2.1-SNAPSHOT</version>
+	<version>0.3.3-SNAPSHOT</version>
 	<name>funds.api</name>
 	<description>Project to manage your funds</description>
 
