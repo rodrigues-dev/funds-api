@@ -1,6 +1,8 @@
 package com.rodrigues.funds.api.dto;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.rodrigues.funds.api.enums.Type;
 import com.rodrigues.funds.api.model.Fund;
@@ -79,6 +81,10 @@ public class OperationDto {
 
 	public void setPriceTax(double priceTax) {
 		this.priceTax = priceTax;
+	}
+	
+	public List<OperationDto> list (List<Operation> operations){
+		return operations.stream().map(OperationDto::new).collect(Collectors.toList());
 	}
 
 }

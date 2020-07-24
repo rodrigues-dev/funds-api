@@ -1,6 +1,7 @@
 package com.rodrigues.funds.api.controller;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +53,14 @@ public class OperationController {
 	}
 	
 	@GetMapping
-	public void getAllOperations () {
+	public ResponseEntity<List<OperationDto>> getAllOperations () {
 		
+		List<Operation> allOperations = operationService.getAllOperations();
+		
+		if (allOperations.isEmpty())
+			return ResponseEntity.notFound().build();
+		
+		return ResponseEntity.ok().body(new OperationDto().list(allOperations));
 	}
 	
 	@PutMapping

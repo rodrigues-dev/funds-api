@@ -35,8 +35,7 @@ public class OperationServiceImpl implements OperationService {
 
 	@Override
 	public List<Operation> getAllOperations() {
-		// TODO Auto-generated method stub
-		return null;
+		return operationRepository.findAll();
 	}
 
 	@Override
