@@ -30,8 +30,7 @@ public class OperationServiceImpl implements OperationService {
 
 	@Override
 	public Optional<Operation> getOperation(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return operationRepository.findById(id);
 	}
 
 	@Override

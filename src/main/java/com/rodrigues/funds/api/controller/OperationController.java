@@ -1,6 +1,7 @@
 package com.rodrigues.funds.api.controller;
 
 import java.net.URI;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +41,14 @@ public class OperationController {
 	}
 	
 	@GetMapping("/{id}")
-	public void getOperation (@PathVariable Long id) {
+	public ResponseEntity<OperationDto> getOperation (@PathVariable Long id) {
+	
+		Optional<Operation> operation = operationService.getOperation(id);
 		
+		if (operation.isPresent())
+			return ResponseEntity.ok().body(new OperationDto(operation.get()));
+		
+		return ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping
