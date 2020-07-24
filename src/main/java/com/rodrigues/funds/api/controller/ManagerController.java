@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,6 +30,8 @@ import com.rodrigues.funds.api.service.ManagerService;
 @RequestMapping("/v1/managers")
 public class ManagerController {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
+	
 	@Autowired
 	private ManagerService managerService;
 	
@@ -36,24 +40,30 @@ public class ManagerController {
 		
 		Manager manager = managerService.createManager(managerForm);
 		
-		URI uri = uriBuilder.path("/v1/managers/{id}").buildAndExpand(manager.getId()).toUri();
+		URI uri = uriBuilder.path("/v1/managers/{id}")
+				.buildAndExpand(manager.getId())
+				.toUri();
 		
+		LOGGER.info("Created a new manager. Id: " + manager.getId());
 		return ResponseEntity.created(uri).body(new ManagerDto(manager));
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateManager (@Valid @RequestBody ManagerToUpdateForm managerForm, @PathVariable Long id) {
+	public ResponseEntity<?> updateManager (@RequestBody ManagerToUpdateForm managerForm, @PathVariable Long id) {
 		
 		Optional<Manager> manager = managerService.updateManager(managerForm, id);
 		
-		if (manager.isPresent())
+		if (manager.isPresent()) {
+			LOGGER.info("Manager " + id + " updated");
 			return ResponseEntity.ok(new ManagerDto(manager.get()));
+		}
 		
 		return ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping
 	public ResponseEntity<List<ManagerDto>> getAllManagers () {
+		LOGGER.info("Listing managers");
 		return ResponseEntity.ok(managerService.getAllManager());
 	}
 	
@@ -62,8 +72,10 @@ public class ManagerController {
 		
 		Optional<Manager> manager = managerService.getManager(id);
 		
-		if (manager.isPresent())
+		if (manager.isPresent()) {
+			LOGGER.info("Manager " + id + " finded");
 			return ResponseEntity.ok(new ManagerDto(manager.get()));
+		}
 		
 		return ResponseEntity.notFound().build();
 	}
@@ -71,8 +83,10 @@ public class ManagerController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteManager (@PathVariable Long id){
 		
-		if (managerService.deleteManager(id))
+		if (managerService.deleteManager(id)) {
+			LOGGER.info("Manager " + id + " deleted");
 			return ResponseEntity.noContent().build();
+		}
 		
 		return ResponseEntity.notFound().build();
 	}

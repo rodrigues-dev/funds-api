@@ -1,56 +1,38 @@
-package com.rodrigues.funds.api.model;
+package com.rodrigues.funds.api.dto;
 
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.rodrigues.funds.api.enums.Type;
+import com.rodrigues.funds.api.model.Fund;
+import com.rodrigues.funds.api.model.Operation;
 
-@Entity
-@Table(name = "TB_OPERATION")
-public class Operation {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	private Long id;
-	
-	@ManyToOne
+public class OperationDto {
+
 	private Fund fund;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "TYPE")
 	private Type type;
 	
-	@Column(name = "QUANTITY")
 	private int quantity;
 	
-	@Column(name = "DATE")
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	
-	@Column(name = "PRICE")
 	private double price;
 	
-	@Column(name = "PRICE_TAX")
 	private double priceTax;
-
-	public Long getId() {
-		return id;
+	
+	public OperationDto() {
+		
 	}
-
-	public void setId(Long id) {
-		this.id = id;
+	
+	public OperationDto(Operation operation) {
+		this.fund = operation.getFund() != null ? operation.getFund() : null;
+		this.type = operation.getType();
+		this.quantity = operation.getQuantity();
+		this.date = operation.getDate();
+		this.price = operation.getPrice();
+		this.priceTax = operation.getPriceTax();
 	}
 
 	public Fund getFund() {
@@ -101,4 +83,8 @@ public class Operation {
 		this.priceTax = priceTax;
 	}
 	
+	public List<OperationDto> list (List<Operation> operations){
+		return operations.stream().map(OperationDto::new).collect(Collectors.toList());
+	}
+
 }

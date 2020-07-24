@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TB_MANAGER")
@@ -35,6 +37,7 @@ public class Manager {
 	private String cnpj;
 	
 	@Column(name = "DATE_UPDATE")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateUpdate;
 
 	public Long getId() {
