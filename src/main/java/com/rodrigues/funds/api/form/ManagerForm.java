@@ -1,7 +1,7 @@
 package com.rodrigues.funds.api.form;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
@@ -19,7 +19,7 @@ public class ManagerForm {
 	@NotNull @NotEmpty @Length(max = 14, min = 14)
 	private String cnpj;
 	private String site;
-	private Date dateUpdate; 
+	private Date dateUpdate;
 	private List<Fund> funds;
 	
 	public String getName() {
@@ -59,7 +59,7 @@ public class ManagerForm {
 		manager.setCnpj(this.cnpj);
 		manager.setSite(this.site !=null ? this.site : null);
 		manager.setFunds(this.funds != null ? this.funds : null);
-		manager.setDateUpdate(Date.valueOf(LocalDate.now()));
+		manager.setDateUpdate(Date.from(Instant.now()));
 		
 		return manager;
 	}

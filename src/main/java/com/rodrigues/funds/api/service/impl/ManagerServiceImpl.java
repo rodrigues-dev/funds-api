@@ -1,5 +1,7 @@
 package com.rodrigues.funds.api.service.impl;
 
+import java.sql.Date;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,8 +36,11 @@ public class ManagerServiceImpl implements ManagerService {
 		
 		if (managerUpdated.isPresent()) {
 			Manager manager = managerRepository.getOne(id);
-			manager.setName(managerForm.getName());
-			manager.setSite(managerForm.getSite());
+			manager.setName(managerForm.getName() != null ? managerForm.getName() : managerUpdated.get().getName());
+			manager.setCnpj(managerForm.getCnpj() != null ? managerForm.getCnpj() : managerUpdated.get().getCnpj());
+			manager.setSite(managerForm.getSite() != null ? managerForm.getSite() : managerUpdated.get().getSite());
+			manager.setFunds(managerForm.getFunds() != null ? managerForm.getFunds() : managerUpdated.get().getFunds());
+			manager.setDateUpdate(Date.from(Instant.now()));
 			return managerUpdated;
 		}		
 		
