@@ -42,7 +42,7 @@ public class ManagerController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateManager (@Valid @RequestBody ManagerToUpdateForm managerForm, @PathVariable Long id) {
+	public ResponseEntity<?> updateManager (@RequestBody ManagerToUpdateForm managerForm, @PathVariable Long id) {
 		
 		Optional<Manager> manager = managerService.updateManager(managerForm, id);
 		

@@ -32,19 +32,20 @@ public class ManagerServiceImpl implements ManagerService {
 	@Transactional
 	public Optional<Manager> updateManager(ManagerToUpdateForm managerForm, Long id) {
 		
-		Optional<Manager> managerUpdated = managerRepository.findById(id);
+		Optional<Manager> manager = managerRepository.findById(id);
 		
-		if (managerUpdated.isPresent()) {
-			Manager manager = managerRepository.getOne(id);
-			manager.setName(managerForm.getName() != null ? managerForm.getName() : managerUpdated.get().getName());
-			manager.setCnpj(managerForm.getCnpj() != null ? managerForm.getCnpj() : managerUpdated.get().getCnpj());
-			manager.setSite(managerForm.getSite() != null ? managerForm.getSite() : managerUpdated.get().getSite());
-			manager.setFunds(managerForm.getFunds() != null ? managerForm.getFunds() : managerUpdated.get().getFunds());
-			manager.setDateUpdate(Date.from(Instant.now()));
-			return managerUpdated;
+		if (manager.isPresent()) {
+			Manager managerToUpdate = managerRepository.getOne(id);
+			managerToUpdate.setName(managerForm.getName() != null ? managerForm.getName() : manager.get().getName());
+			managerToUpdate.setCnpj(managerForm.getCnpj() != null ? managerForm.getCnpj() : manager.get().getCnpj());
+			managerToUpdate.setSite(managerForm.getSite() != null ? managerForm.getSite() : manager.get().getSite());
+			managerToUpdate.setFunds(managerForm.getFunds() != null ? managerForm.getFunds() : manager.get().getFunds());
+			managerToUpdate.setDateUpdate(Date.from(Instant.now()));
+			
+			return manager;
 		}		
 		
-		return managerUpdated;
+		return manager;
 	}
 
 	@Override
